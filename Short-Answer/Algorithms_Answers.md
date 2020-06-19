@@ -14,9 +14,16 @@ Overall it's 0(n).
 
 
 
-
-
-
 ## Exercise II
 
+--> The first idea is to use a binary search.  
+--> We are talking about 'n' floors, which would be the length of our list 
+--> Each index in our list is assigned as 'f'
+--> We find where the 'f' where no eggs break when thrown off 
+--> We assign the start of the list (bottom floor) a 'low' pointer and the end of the list a 'high' pointer(top floor)
+--> To do this, we halve our list (n) to work out the middle index of 'n' (halving the sum of our high and low pointers) We then check at this specific index which is our middle floor whether the egg breaks. 
+--> If they do can focus on the left side of our list, as it means our middle index floor is too high. We focus on the lower floors half of the list. We re-calculate the high pointer so it points at one below the middle index. Our low pointer stays at the start of the list. We then reculate our middle index so it becomes the floor halfway between the low and new high pointer. We test again whether the egg breaks, if it does, repeat the same process, until we find a floor where the egg does not break and return this index of 'f'. 
 
+--> Alternatively, if the egg doesnt break at the initial calculated middle index, then we can recalculate our search by focusing on the right side(higher floors), adjust the middle index so its one after its current index, and test whether the egg breaks at this new calculated floor. If not, repeat, until you find optimal floor where it doesnt break.
+
+--> The big 0 would be worst-case 0(logn) as input size increases we are halving the operations each time. 
