@@ -81,30 +81,74 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
         """
         return self._light == "ON"
 
+
+# PLAN:
+ # Light to show that its been swapped in a loop. Swaps need to continue like Bubble Sort
+ # Turn light off to show there have been no swaps = sorted list
+ # So it can go left or right
+    # it starts off going right until gets to end, then moves left and keeps doing this right and left movement until sorted
+
+
     def sort(self):
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+     # Turn on light at start as elements are unsorted
+        self.set_light_on()
+        # While there have been swaps, we want to keep looping through our list
+        while self.light_is_on():
+            # turn off light as no swaps have happened yet
+            self.set_light_off()
+            # We can start by moving left to right through the list, this condition for while loop returns false when reaches end of list
+            while self.can_move_right():
+                # First time the robot is holding 'none', it swaps this 'none' item its holding with the first item. The none gets put in index 0 instead
+                self.swap_item()
+            # Now the robot moves to next element on the right
+                self.move_right()
+            # Now the robot is infront of another element, holding its current element (first element initially)
+            # It checks that the element its holding > than the element in front of it
+                if self.compare_item() == 1:
+                    # If it is, the robot swaps its current holding element with this item at this index. The current holding element (which is larger) gets put down at this index and this
+                    self.swap_item()
+                    # self.move_right()
+                    # We turn the light on as there has been a swap taken place
+                    self.set_light_on()
+                # After this carry on second while loop until we reach the end of the list
+
+            # If robot is at the last element in list, it breaks out of second while loop and goes into this one, as it can now move from right to left
+                # First time it goes here it is currently holding the last element from end of list
+            while self.can_move_left():
+                # Move robot left
+                # print(self._list)
+                self.move_left()
+                # print(self._list)
+                # Picks up second last element, compares it to last element, if its bigger it swaps them
+                self.swap_item()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    # Light on again to show a swap has taken place
+                    self.set_light_on()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
